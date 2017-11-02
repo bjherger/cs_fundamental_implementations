@@ -15,7 +15,7 @@ Each with appropriate testing.
 # Create python virtual environment
 conda env create -f environment.yml 
 
-# Activate python virtual environment
+;z# Activate python virtual environment
 source activate simple
 
 # Run scrip
