@@ -1,5 +1,6 @@
 import unittest
 
+from data_structures.queue import Queue
 from data_structures.binary_tree import BinaryTree
 from data_structures import linked_list
 
@@ -189,6 +190,56 @@ class BinaryTreeTests(unittest.TestCase):
         tree.remove('banana')
         self.assertFalse(tree.contains('banana'))
         self.assertItemsEqual(tree.to_list(), ['apple', 'chocolate', 'durian', 'eclair'])
+
+
+class QueueTets(unittest.TestCase):
+
+    def create_no_element_queue(self):
+        queue = Queue()
+
+        return queue
+
+    def create_one_element_queue(self):
+        queue = Queue()
+
+        queue.add('apple')
+
+        return queue
+
+    def create_five_element_queue(self):
+        queue = Queue()
+
+        for elem in ['apple', 'banana', 'chocolate', 'durian', 'eclair']:
+            queue.add(elem)
+        return queue
+
+    def test_no_elem_queue(self):
+        queue = self.create_no_element_queue()
+
+        self.assertEquals(queue.to_list(), list())
+        self.assertEquals(queue.peek(), None)
+
+    def test_one_elem_queue(self):
+        queue = self.create_one_element_queue()
+
+        self.assertEquals(queue.to_list(), ['apple'])
+        self.assertEquals(queue.peek(), 'apple')
+        removed = queue.remove()
+        self.assertEquals(removed, 'apple')
+        self.assertEquals(queue.to_list(), list())
+        self.assertEquals(queue.peek(), None)
+
+    def test_five_elem_queue(self):
+        queue = self.create_five_element_queue()
+
+        self.assertEquals(queue.to_list(), ['apple', 'banana', 'chocolate', 'durian', 'eclair'])
+        self.assertEquals(queue.peek(), 'apple')
+        removed = queue.remove()
+        self.assertEquals(removed, 'apple')
+        self.assertEquals(queue.to_list(), ['banana', 'chocolate', 'durian', 'eclair'])
+        self.assertEquals(queue.peek(), 'banana')
+
+
 
 
 if __name__ == '__main__':
