@@ -107,7 +107,6 @@ class BinaryTree(object):
 
 
     def subtree(self, element):
-        print element
 
         # Find node containing element
         current = self.root
