@@ -1,6 +1,6 @@
 import unittest
 
-from data_structures.queue import Queue
+from data_structures.heap import heap
 from data_structures.binary_tree import BinaryTree
 from data_structures import linked_list
 
@@ -192,35 +192,35 @@ class BinaryTreeTests(unittest.TestCase):
         self.assertItemsEqual(tree.to_list(), ['apple', 'chocolate', 'durian', 'eclair'])
 
 
-class QueueTets(unittest.TestCase):
+class HeapTests(unittest.TestCase):
 
-    def create_no_element_queue(self):
-        queue = Queue()
+    def create_no_element_heap(self):
+        queue = heap()
 
         return queue
 
-    def create_one_element_queue(self):
-        queue = Queue()
+    def create_one_element_heap(self):
+        queue = heap()
 
         queue.add('apple')
 
         return queue
 
-    def create_five_element_queue(self):
-        queue = Queue()
+    def create_five_element_heap(self):
+        queue = heap()
 
         for elem in ['apple', 'banana', 'chocolate', 'durian', 'eclair']:
             queue.add(elem)
         return queue
 
-    def test_no_elem_queue(self):
-        queue = self.create_no_element_queue()
+    def test_no_elem_heap(self):
+        queue = self.create_no_element_heap()
 
         self.assertEquals(queue.to_list(), list())
         self.assertEquals(queue.peek(), None)
 
-    def test_one_elem_queue(self):
-        queue = self.create_one_element_queue()
+    def test_one_elem_heap(self):
+        queue = self.create_one_element_heap()
 
         self.assertEquals(queue.to_list(), ['apple'])
         self.assertEquals(queue.peek(), 'apple')
@@ -229,8 +229,8 @@ class QueueTets(unittest.TestCase):
         self.assertEquals(queue.to_list(), list())
         self.assertEquals(queue.peek(), None)
 
-    def test_five_elem_queue(self):
-        queue = self.create_five_element_queue()
+    def test_five_elem_heap(self):
+        queue = self.create_five_element_heap()
 
         self.assertEquals(queue.to_list(), ['apple', 'banana', 'chocolate', 'durian', 'eclair'])
         self.assertEquals(queue.peek(), 'apple')

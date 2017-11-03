@@ -1,6 +1,6 @@
-class Queue(object):
+class heap(object):
 
-    # Simple first in, first out (FIFO) queue, based on the Java Queue API:
+    # Simple first in, last out (FLFO) queue, based on the Java Queue API:
     # https://docs.oracle.com/javase/7/docs/api/java/util/Queue.html
 
     def __init__(self):
@@ -8,14 +8,14 @@ class Queue(object):
 
     def add(self, load):
         if self.head is None:
-            self.head = QueueNode(load)
+            self.head = HeapNode(load)
         else:
             parent = self.head
 
             while parent.next is not None:
                 parent = parent.next
 
-            parent.next = QueueNode(load)
+            parent.next = HeapNode(load)
 
     def to_list(self):
         agg = list()
@@ -44,7 +44,7 @@ class Queue(object):
             self.head = new_head
             return old_head.load
 
-class QueueNode(object):
+class HeapNode(object):
 
     def __init__(self, load):
         self.load = load
