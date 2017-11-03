@@ -1,5 +1,6 @@
 import unittest
 
+from algorithms.binary_search import binary_search
 from data_structures.queue import Queue
 from data_structures.stack import Stack
 from data_structures.binary_tree import BinaryTree
@@ -7,7 +8,6 @@ from data_structures import linked_list
 
 
 class LinkedListTests(unittest.TestCase):
-
     def test_empty_list(self):
         ll = linked_list.LinkedList()
         self.assertEquals(ll.to_list(), list())
@@ -51,7 +51,6 @@ class LinkedListTests(unittest.TestCase):
         self.assertEquals(ll.last, None)
         self.assertEquals(ll.to_list(), test_list[1:])
 
-
     def test_remove_first_multiple(self):
         ll = linked_list.LinkedList()
         test_list = ['First', 'Second', 'Third']
@@ -83,8 +82,8 @@ class LinkedListTests(unittest.TestCase):
         self.assertEquals(last, test_list[-1])
         self.assertEquals(ll.to_list(), test_list[:-1])
 
-class BinaryTreeTests(unittest.TestCase):
 
+class BinaryTreeTests(unittest.TestCase):
     @staticmethod
     def generate_no_element_tree():
         tree = BinaryTree()
@@ -113,13 +112,11 @@ class BinaryTreeTests(unittest.TestCase):
         tree.add('eclair')
         return tree
 
-
     def test_no_element(self):
         tree = self.generate_no_element_tree()
 
         self.assertItemsEqual(tree.to_list(), list())
         self.assertFalse(tree.contains('flour'))
-
 
     def test_one_element(self):
         tree = self.generate_one_element_tree()
@@ -136,7 +133,6 @@ class BinaryTreeTests(unittest.TestCase):
         self.assertFalse(tree.contains('flour'))
 
     def test_five_element_tree(self):
-
         tree = self.generate_five_element_tree()
         self.assertItemsEqual(tree.to_list(), ['apple', 'banana', 'chocolate', 'durian', 'eclair'])
         self.assertTrue(tree.contains('apple'))
@@ -145,7 +141,6 @@ class BinaryTreeTests(unittest.TestCase):
         self.assertTrue(tree.contains('durian'))
         self.assertTrue(tree.contains('eclair'))
         self.assertFalse(tree.contains('flour'))
-
 
     def test_no_element_remove(self):
         tree = self.generate_no_element_tree()
@@ -194,7 +189,6 @@ class BinaryTreeTests(unittest.TestCase):
 
 
 class StackTests(unittest.TestCase):
-
     def create_no_element_stack(self):
         queue = Stack()
 
@@ -242,7 +236,6 @@ class StackTests(unittest.TestCase):
 
 
 class QueueTests(unittest.TestCase):
-
     def create_no_element(self):
         queue = Queue()
 
@@ -286,7 +279,6 @@ class QueueTests(unittest.TestCase):
         self.assertEqual(queue.remove(), 'apple')
         self.assertEqual(queue.remove(), None)
 
-
     def test_two_elemnt(self):
         queue = self.create_two_element()
 
@@ -309,8 +301,45 @@ class QueueTests(unittest.TestCase):
         self.assertEqual(queue.remove(), None)
 
 
+class BinarySearchTest(unittest.TestCase):
+    def test_no_element(self):
+        a = []
+        self.assertFalse(binary_search(a, 5))
 
+    def test_one_element(self):
+        a = [3]
 
+        self.assertTrue(binary_search(a, 3))
+        self.assertFalse(binary_search(a, 5))
+
+    def test_two_element(self):
+        a = [2, 3]
+
+        self.assertTrue(binary_search(a, 2))
+        self.assertTrue(binary_search(a, 3))
+        self.assertFalse(binary_search(a, 5))
+
+    def test_five_element(self):
+        a = [2, 3, 13, 18, 100]
+
+        self.assertTrue(binary_search(a, 2))
+        self.assertTrue(binary_search(a, 3))
+        self.assertTrue(binary_search(a, 13))
+        self.assertTrue(binary_search(a, 18))
+        self.assertTrue(binary_search(a, 100))
+        self.assertFalse(binary_search(a, 5))
+
+    def test_six_elements(self):
+
+        a = [2, 3, 13, 18, 100, 1000]
+
+        self.assertTrue(binary_search(a, 2))
+        self.assertTrue(binary_search(a, 3))
+        self.assertTrue(binary_search(a, 13))
+        self.assertTrue(binary_search(a, 18))
+        self.assertTrue(binary_search(a, 100))
+        self.assertTrue(binary_search(a, 1000))
+        self.assertFalse(binary_search(a, 5))
 
 
 if __name__ == '__main__':
