@@ -1,5 +1,6 @@
 import unittest
 
+from data_structures.queue import Queue
 from data_structures.stack import Stack
 from data_structures.binary_tree import BinaryTree
 from data_structures import linked_list
@@ -238,6 +239,76 @@ class StackTests(unittest.TestCase):
         self.assertEquals(removed, 'apple')
         self.assertEquals(queue.to_list(), ['banana', 'chocolate', 'durian', 'eclair'])
         self.assertEquals(queue.peek(), 'banana')
+
+
+class QueueTests(unittest.TestCase):
+
+    def create_no_element(self):
+        queue = Queue()
+
+        return queue
+
+    def create_one_element(self):
+        queue = Queue()
+
+        for i in ['apple']:
+            queue.add(i)
+
+        return queue
+
+    def create_two_element(self):
+        queue = Queue()
+
+        for i in ['apple', 'banana']:
+            queue.add(i)
+
+        return queue
+
+    def create_five_element(self):
+        queue = Queue()
+
+        for i in ['apple', 'banana', 'chocolate', 'durian', 'eclair']:
+            queue.add(i)
+
+        return queue
+
+    def test_no_element(self):
+        queue = self.create_no_element()
+
+        self.assertEqual(queue.to_list(), list())
+        self.assertAlmostEquals(queue.remove(), None)
+
+    def test_one_element(self):
+        queue = self.create_one_element()
+
+        self.assertEqual(queue.to_list(), ['apple'])
+        self.assertEqual(queue.peek(), 'apple')
+        self.assertEqual(queue.remove(), 'apple')
+        self.assertEqual(queue.remove(), None)
+
+
+    def test_two_elemnt(self):
+        queue = self.create_two_element()
+
+        self.assertEqual(queue.to_list(), ['apple', 'banana'])
+        self.assertEqual(queue.peek(), 'apple')
+        self.assertEqual(queue.remove(), 'apple')
+        self.assertEqual(queue.remove(), 'banana')
+        self.assertEqual(queue.remove(), None)
+
+    def test_five_elemnt(self):
+        queue = self.create_five_element()
+
+        elements = ['apple', 'banana', 'chocolate', 'durian', 'eclair']
+        self.assertEqual(queue.to_list(), elements)
+        self.assertEqual(queue.peek(), 'apple')
+
+        for i in elements:
+            self.assertEqual(queue.remove(), i)
+
+        self.assertEqual(queue.remove(), None)
+
+
 
 
 
