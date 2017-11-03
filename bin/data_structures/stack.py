@@ -1,6 +1,6 @@
-class heap(object):
+class Stack(object):
 
-    # Simple first in, last out (FLFO) queue, based on the Java Queue API:
+    # Simple first in, last out (FLFO) stack, based on the Java Queue API:
     # https://docs.oracle.com/javase/7/docs/api/java/util/Queue.html
 
     def __init__(self):
@@ -8,14 +8,14 @@ class heap(object):
 
     def add(self, load):
         if self.head is None:
-            self.head = HeapNode(load)
+            self.head = StackNode(load)
         else:
             parent = self.head
 
             while parent.next is not None:
                 parent = parent.next
 
-            parent.next = HeapNode(load)
+            parent.next = StackNode(load)
 
     def to_list(self):
         agg = list()
@@ -44,7 +44,7 @@ class heap(object):
             self.head = new_head
             return old_head.load
 
-class HeapNode(object):
+class StackNode(object):
 
     def __init__(self, load):
         self.load = load
