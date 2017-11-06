@@ -401,12 +401,21 @@ class TestMinHeap(unittest.TestCase):
 
     def test_two_elements(self):
         h = self.create_two_elements()
-        l = [13, -5]
+        l = sorted([13, -5])
 
-        self.assertItemsEqual(h.to_list(), l)
-        self.assertEquals(h.peek(), -5)
+        for (l_index, l_element) in enumerate(l):
+            self.assertItemsEqual(h.to_list(), l[l_index:])
+            self.assertEquals(h.peek(), l_element)
+            self.assertEquals(h.remove(), l_element)
 
+    def test_five_elements(self):
+        h = self.create_five_elements()
+        l = sorted([-5, 13, 22, -30, 100])
 
+        for (l_index, l_element) in enumerate(l):
+            self.assertItemsEqual(h.to_list(), l[l_index:])
+            self.assertEquals(h.peek(), l_element)
+            self.assertEquals(h.remove(), l_element)
 
 
 if __name__ == '__main__':
