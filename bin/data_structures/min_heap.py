@@ -35,7 +35,6 @@ class MinHeap(object):
 
     def bubble_up(self, bubble_index):
         while bubble_index > 0:
-            print bubble_index
             if self.heap_list[bubble_index / 2] > self.heap_list[bubble_index]:
                 self.heap_list = self.switch_indices(self.heap_list, bubble_index / 2, bubble_index)
             bubble_index = bubble_index / 2
