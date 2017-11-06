@@ -1,6 +1,7 @@
 import unittest
 
 from algorithms.binary_search import binary_search
+from data_structures.min_heap import MinHeap
 from data_structures.queue import Queue
 from data_structures.stack import Stack
 from data_structures.binary_tree import BinaryTree
@@ -330,7 +331,6 @@ class BinarySearchTest(unittest.TestCase):
         self.assertFalse(binary_search(a, 5))
 
     def test_six_elements(self):
-
         a = [2, 3, 13, 18, 100, 1000]
 
         self.assertTrue(binary_search(a, 2))
@@ -340,6 +340,82 @@ class BinarySearchTest(unittest.TestCase):
         self.assertTrue(binary_search(a, 100))
         self.assertTrue(binary_search(a, 1000))
         self.assertFalse(binary_search(a, 5))
+
+
+class TestMinHeap(unittest.TestCase):
+    def test_switch_indices(self):
+        l = [1, 2, 3, 4, 5]
+
+        self.assertEquals(MinHeap.switch_indices(l, 2, 4), [1, 2, 5, 4, 3])
+
+    def create_no_elements(self):
+
+        h = MinHeap()
+
+        return h
+
+    def create_one_elements(self):
+        h = MinHeap()
+
+        l = [-5]
+
+        for i in l:
+            h.add(i)
+
+        return h
+
+    def create_two_elements(self):
+        h = MinHeap()
+
+        l = [13, -5]
+
+        for i in l:
+            h.add(i)
+
+        return h
+
+    def create_five_elements(self):
+        h = MinHeap()
+
+        l = [-5, 13, 22, -30, 100]
+
+        for i in l:
+            h.add(i)
+
+        return h
+
+    def test_no_elements(self):
+        h = self.create_no_elements()
+
+        self.assertItemsEqual(h.to_list(), list())
+        self.assertEquals(h.remove(), None)
+
+    def test_one_elements(self):
+        h = self.create_one_elements()
+
+        self.assertItemsEqual(h.to_list(), [-5])
+        self.assertEquals(h.peek(), -5)
+        self.assertEquals(h.remove(), -5)
+        self.assertItemsEqual(h.to_list(), list())
+        self.assertEquals(h.remove(), None)
+
+    def test_two_elements(self):
+        h = self.create_two_elements()
+        l = sorted([13, -5])
+
+        for (l_index, l_element) in enumerate(l):
+            self.assertItemsEqual(h.to_list(), l[l_index:])
+            self.assertEquals(h.peek(), l_element)
+            self.assertEquals(h.remove(), l_element)
+
+    def test_five_elements(self):
+        h = self.create_five_elements()
+        l = sorted([-5, 13, 22, -30, 100])
+
+        for (l_index, l_element) in enumerate(l):
+            self.assertItemsEqual(h.to_list(), l[l_index:])
+            self.assertEquals(h.peek(), l_element)
+            self.assertEquals(h.remove(), l_element)
 
 
 if __name__ == '__main__':
