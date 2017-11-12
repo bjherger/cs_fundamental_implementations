@@ -1,6 +1,11 @@
 import unittest
 
+import cPickle
+import pandas
+from pandas.util.testing import assert_frame_equal
+
 from algorithms.binary_search import binary_search
+from ml.tf_idf import TfIdf
 from data_structures.min_heap import MinHeap
 from data_structures.queue import Queue
 from data_structures.stack import Stack
@@ -417,6 +422,55 @@ class TestMinHeap(unittest.TestCase):
             self.assertEquals(h.peek(), l_element)
             self.assertEquals(h.remove(), l_element)
 
+class TestTfidf(unittest.TestCase):
+
+    def create_no_documents(self):
+        doc_list = list()
+
+        df = pandas.DataFrame(data=doc_list, columns=['text'])
+        df['document'] = df.index
+
+        return df
+
+    def create_one_document(self):
+        doc_list = ['This is a test document']
+
+        df = pandas.DataFrame(data=doc_list, columns=['text'])
+        df['document'] = df.index
+
+        return df
+
+    def create_two_documents(self):
+        doc_list = ['This is a test document', 'This is another test document, which is a bit longer']
+
+        df = pandas.DataFrame(data=doc_list, columns=['text'])
+        df['document'] = df.index
+
+        return df
+
+    def test_no_documents(self):
+        X = self.create_no_documents()
+        tf = TfIdf()
+        result = tf.fit_transform(X)
+
+        gold_standard = cPickle.load(open('../resources/tfidf/no_doc.pkl'))
+        assert_frame_equal(result.reset_index(drop=True), gold_standard.reset_index(drop=True))
+
+    def test_one_documents(self):
+        X = self.create_one_document()
+        tf = TfIdf()
+        result = tf.fit_transform(X)
+
+        gold_standard = cPickle.load(open('../resources/tfidf/one_doc.pkl'))
+        assert_frame_equal(result.reset_index(drop=True), gold_standard.reset_index(drop=True))
+
+    def test_two_documents(self):
+        X = self.create_two_documents()
+        tf = TfIdf()
+        result = tf.fit_transform(X)
+
+        gold_standard = cPickle.load(open('../resources/tfidf/two_doc.pkl'))
+        assert_frame_equal(result.reset_index(drop=True), gold_standard.reset_index(drop=True))
 
 if __name__ == '__main__':
     unittest.main()
