@@ -5,7 +5,9 @@ import pandas
 from pandas.util.testing import assert_frame_equal
 
 from algorithms.binary_search import binary_search
-from data_structures.graph import NodeGraph
+from data_structures.node_graph import NodeGraph
+
+from data_structures.matrix_graph import MatrixGraph
 from ml.tf_idf import TfIdf
 from data_structures.min_heap import MinHeap
 from data_structures.queue import Queue
@@ -486,7 +488,68 @@ class TestNodeGraph(unittest.TestCase):
         self.assertRaises(ValueError, g.get_node, 'k')
 
 
+class TestMatrixGraph(unittest.TestCase):
+    def test_no_nodes(self):
+        g = MatrixGraph(30)
+
+        node_values = list()
+
+        for node_value in node_values:
+            g.add_node(node_value)
+
+        self.assertItemsEqual(g.to_adjacency_list(), list())
+
+    def test_one_nodes(self):
+        g = MatrixGraph(30)
+
+        node_values = list('a')
+
+        for node_value in node_values:
+            g.add_node(node_value)
+
+        self.assertItemsEqual(g.to_adjacency_list(), list())
+        self.assertItemsEqual(g.to_node_list(), ['a'])
+
+    def test_two_nodes(self):
+        g = MatrixGraph(30)
+
+        node_values = ['a', 'b']
+
+        for node_value in node_values:
+            g.add_node(node_value)
+
+        self.assertItemsEqual(g.to_adjacency_list(), list())
+
+        g.add_edge('b', 'a')
+        self.assertItemsEqual(g.to_adjacency_list(), [('b', 'a', 1)])
+        self.assertItemsEqual(g.to_node_list(), ['a', 'b'])
+
+    def test_five_nodes(self):
+        g = MatrixGraph(30)
+
+        node_values = ['a', 'b', 'c', 'd', 'e']
+
+        for node_value in node_values:
+            g.add_node(node_value)
+
+        self.assertItemsEqual(g.to_node_list(), ['a', 'b', 'c', 'd', 'e'])
+
+        # No edges
+        self.assertItemsEqual(g.to_adjacency_list(), list())
+
+        # One edge
+        g.add_edge('b', 'a')
+        self.assertItemsEqual(g.to_adjacency_list(), [('b', 'a', 1)])
+
+        g.add_edge('a', 'b', 17)
+        self.assertItemsEqual(g.to_adjacency_list(), [('b', 'a', 1), ('a', 'b', 17)])
+
+        g.add_edge('e', 'a')
+        self.assertItemsEqual(g.to_adjacency_list(), [('b', 'a', 1), ('a', 'b', 17), ('e', 'a', 1)])
+
+
 class TestTfidf(unittest.TestCase):
+
     def create_no_documents(self):
         doc_list = list()
 
