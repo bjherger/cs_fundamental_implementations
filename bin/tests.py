@@ -6,6 +6,7 @@ from pandas.util.testing import assert_frame_equal
 
 from algorithms.binary_search import binary_search
 from algorithms.merge_sort import merge_sort, merge
+from algorithms.quick_sort import quick_sort
 from data_structures.node_graph import NodeGraph
 
 from data_structures.matrix_graph import MatrixGraph
@@ -602,8 +603,6 @@ class TestTfidf(unittest.TestCase):
 
 class TestMergeSort(unittest.TestCase):
 
-
-
     def test_merge_none_none(self):
         l = list()
         r = list()
@@ -649,6 +648,29 @@ class TestMergeSort(unittest.TestCase):
     def test_eight_elements(self):
         l = list('akdleijx')
         self.assertEquals(merge_sort(l), sorted(l))
+
+class TestQuickSort(unittest.TestCase):
+
+    # def test_zero_elements(self):
+    #     l = []
+    #     self.assertEquals(quick_sort(l), sorted(l))
+    #
+    # def test_one_elements(self):
+    #     l = list('t')
+    #     self.assertEquals(quick_sort(l), sorted(l))
+
+    def test_two_elements(self):
+        l = list('ta')
+        self.assertEquals(quick_sort(l), sorted(l))
+
+
+    def test_three_elements(self):
+        l = list('xij')
+        self.assertEquals(quick_sort(l), sorted(l))
+
+    def test_eight_elements(self):
+        l = list('akdleijx')
+        self.assertEquals(quick_sort(l), sorted(l))
 
 if __name__ == '__main__':
     unittest.main()
