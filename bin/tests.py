@@ -5,6 +5,7 @@ import pandas
 from pandas.util.testing import assert_frame_equal
 
 from algorithms.binary_search import binary_search
+from algorithms.merge_sort import merge_sort, merge
 from data_structures.node_graph import NodeGraph
 
 from data_structures.matrix_graph import MatrixGraph
@@ -598,6 +599,56 @@ class TestTfidf(unittest.TestCase):
         gold_standard = cPickle.load(open('../resources/tfidf/two_doc.pkl'))
         assert_frame_equal(result.reset_index(drop=True), gold_standard.reset_index(drop=True))
 
+
+class TestMergeSort(unittest.TestCase):
+
+
+
+    def test_merge_none_none(self):
+        l = list()
+        r = list()
+
+        self.assertEquals(merge(sorted(l), sorted(r)), sorted(l + r))
+
+    def test_merge_one_none(self):
+        l = list('a')
+        r = list()
+
+        self.assertEquals(merge(sorted(l), sorted(r)), sorted(l+r))
+
+    def test_merge_one_none(self):
+        l = list()
+        r = list('a')
+
+        self.assertEquals(merge(sorted(l), sorted(r)), sorted(l + r))
+
+    def test_merge_one_one(self):
+        l = list('z')
+        r = list('a')
+
+        self.assertEquals(merge(sorted(l), sorted(r)), sorted(l + r))
+
+    def test_merge_five_five(self):
+        l = list('abcde')
+        r = list('zyxwv')
+
+        self.assertEquals(merge(sorted(l), sorted(r)), sorted(l + r))
+
+    def test_zero_elements(self):
+        l = []
+        self.assertEquals(merge_sort(l), sorted(l))
+
+    def test_one_elements(self):
+        l = list('t')
+        self.assertEquals(merge_sort(l), sorted(l))
+
+    def test_two_elements(self):
+        l = list('ta')
+        self.assertEquals(merge_sort(l), sorted(l))
+
+    def test_eight_elements(self):
+        l = list('akdleijx')
+        self.assertEquals(merge_sort(l), sorted(l))
 
 if __name__ == '__main__':
     unittest.main()
