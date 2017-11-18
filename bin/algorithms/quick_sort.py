@@ -2,24 +2,42 @@ def quick_sort(array):
     if len(array) <= 1:
         return array
 
-    total = list()
-    lower = list()
-    upper = list()
+    quick_sort_helper(array, 0, len(array) - 1)
+    return array
 
-    pivot_index = (len(array)-1) / 2
+def quick_sort_helper(array, lower_index, upper_index):
+    if lower_index == upper_index:
+        return array
 
-    for elem in array[:pivot_index] + array[pivot_index+1:]:
-        if elem <= array[pivot_index]:
-            lower.append(elem)
-        elif elem > array[pivot_index]:
-            upper.append(elem)
+    lower_cursor = lower_index
+    upper_cursor = upper_index - 1
+    pivot_element = array[upper_index]
 
-    lower_sorted = quick_sort(lower)
-    upper_sorted = quick_sort(upper)
+    while lower_cursor < upper_cursor:
+        if array[lower_cursor] <=pivot_element and array[upper_cursor] > pivot_element:
+            lower_cursor += 1
+            upper_cursor -= 1
+        elif array[lower_cursor] > pivot_element and array[upper_cursor] > pivot_element:
+            upper_cursor -= 1
+        elif array[lower_cursor] < pivot_element and array[upper_cursor] < pivot_element:
+            lower_cursor += 1
+        elif array[lower_cursor] > pivot_element and array[upper_cursor] < pivot_element:
+            swap(array, lower_cursor, upper_cursor)
+            lower_cursor += 1
+            upper_cursor -= 1
+        else:
+            print array[lower_cursor], pivot_element, array[upper_cursor]
+            raise ValueError('Issue')
 
-    total.extend(lower_sorted)
-    total.extend(array[pivot_index])
-    total.extend(upper_sorted)
+    if pivot_element < array[lower_cursor]:
+        swap(array, lower_cursor, upper_index)
 
+    quick_sort_helper(array, lower_index, lower_cursor)
+    quick_sort_helper(array, lower_cursor+1, upper_index)
+    return array
 
-    return total
+def swap(array, index1, index2):
+    temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+    return array

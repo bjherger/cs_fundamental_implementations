@@ -651,13 +651,13 @@ class TestMergeSort(unittest.TestCase):
 
 class TestQuickSort(unittest.TestCase):
 
-    # def test_zero_elements(self):
-    #     l = []
-    #     self.assertEquals(quick_sort(l), sorted(l))
-    #
-    # def test_one_elements(self):
-    #     l = list('t')
-    #     self.assertEquals(quick_sort(l), sorted(l))
+    def test_zero_elements(self):
+        l = []
+        self.assertEquals(quick_sort(l), sorted(l))
+
+    def test_one_elements(self):
+        l = list('t')
+        self.assertEquals(quick_sort(l), sorted(l))
 
     def test_two_elements(self):
         l = list('ta')
@@ -669,7 +669,7 @@ class TestQuickSort(unittest.TestCase):
         self.assertEquals(quick_sort(l), sorted(l))
 
     def test_eight_elements(self):
-        l = list('akdleijx')
+        l = list('akdlxeij')
         self.assertEquals(quick_sort(l), sorted(l))
 
 if __name__ == '__main__':
